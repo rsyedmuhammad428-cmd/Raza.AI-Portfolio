@@ -11,7 +11,7 @@ import type { ChatMessage } from "@/types/chat";
 
 const MODEL = process.env.GEMINI_MODEL || "gemini-flash-latest";
 const TIMEOUT_MS = 15_000;
-const MAX_OUTPUT_TOKENS = 600;
+const MAX_OUTPUT_TOKENS = 1200;
 
 let client: GoogleGenAI | null = null;
 

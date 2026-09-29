@@ -131,7 +131,7 @@ export function ChatWindow() {
           transition={{ duration: prefersReducedMotion ? 0 : 0.2, ease: "easeOut" }}
           className="fixed inset-0 z-50 sm:inset-auto sm:bottom-6 sm:right-6"
         >
-          <GlassPanel className="flex h-full w-full flex-col !bg-base-panel/95 sm:h-[34rem] sm:w-96">
+          <GlassPanel className="flex h-full w-full flex-col !bg-base-panel/95 sm:h-[min(42rem,calc(100dvh-3rem))] sm:w-[min(28rem,calc(100vw-3rem))]">
             <div className="flex items-center justify-between border-b border-base-border py-1.5 pl-4 pr-1.5 pt-[max(0.375rem,env(safe-area-inset-top))]">
               <div className="flex items-center gap-2 text-accent">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
