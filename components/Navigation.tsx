@@ -15,25 +15,31 @@ export function Navigation() {
   // Scroll-spy: detects active section dynamically as visitor scrolls
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 160;
+      const activationLine = window.scrollY + 160;
+      let currentSection = NAV_ITEMS[0]?.href;
 
       for (const item of NAV_ITEMS) {
         const id = item.href.replace("/#", "");
         const element = document.getElementById(id);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(item.href);
-            break;
-          }
+        if (element && element.getBoundingClientRect().top + window.scrollY <= activationLine) {
+          currentSection = item.href;
         }
       }
+
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        currentSection = NAV_ITEMS[NAV_ITEMS.length - 1]?.href ?? currentSection;
+      }
+
+      if (currentSection) setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   // Escape closes the mobile menu and returns focus to its toggle.
