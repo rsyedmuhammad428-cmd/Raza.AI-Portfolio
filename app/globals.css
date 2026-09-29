@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-base-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-base text-ink font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  /* Visible keyboard focus everywhere, not just on interactive defaults */
+  :focus-visible {
+    outline: 2px solid theme("colors.accent.DEFAULT");
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* In-page anchors must land below the fixed navigation bar. */
+  section[id] {
+    scroll-margin-top: 6.5rem;
+  }
+
+  ::selection {
+    background: theme("colors.accent.glow");
+    color: theme("colors.ink.DEFAULT");
+  }
+}
+
+@layer components {
+  /* Shared glass-panel surface used across cards, the AI chat, nav, etc. */
+  .glass-panel {
+    @apply relative rounded-panel border border-base-border bg-base-panel/70 backdrop-blur-md;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-10;
+  }
+}
+
+/* Comfortable minimum touch target on touch devices only; desktop stays compact. */
+.touch-target {
+  display: inline-flex;
+  align-items: center;
+}
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 2.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
